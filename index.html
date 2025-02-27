@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parking Lot Frogger</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js"></script>
+  <script src="p5setup.js" type="module"></script>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #222;
+      font-family: Arial, sans-serif;
+    }
+    canvas {
+      display: block;
+    }
+    #leaderboard {
+      position: absolute;
+      right: 50%;
+      top: 50%;
+      transform: translate(50%, -50%);
+      background: rgba(0,0,0,0.85);
+      padding: 20px;
+      border-radius: 15px;
+      color: white;
+      display: none;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+      max-width: 90vw;
+      max-height: 90vh;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+    #leaderboard h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #ffd700;
+      font-size: 24px;
+    }
+    #leaderboard h3 {
+      margin: 10px 0;
+      color: #ffd700;
+      font-size: 18px;
+      text-align: center;
+    }
+    .score-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 8px 0;
+      padding: 10px 15px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+    .score-row:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateX(5px);
+    }
+    .score-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .rank {
+      min-width: 25px;
+      color: #ffd700;
+    }
+    .email {
+      color: #fff;
+      font-family: monospace;
+    }
+    .points {
+      color: #4CAF50;
+      font-weight: bold;
+    }
+    .highlight {
+      background: rgba(255,215,0,0.3);
+      animation: glow 1s ease-in-out infinite alternate;
+    }
+    input {
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 2px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.9);
+      font-size: 14px;
+      transition: all 0.3s ease;
+      width: 220px;
+    }
+    input:focus {
+      outline: none;
+      border-color: #4CAF50;
+      box-shadow: 0 0 10px rgba(76,175,80,0.5);
+    }
+    button {
+      padding: 12px 20px;
+      border-radius: 6px;
+      border: none;
+      background: #4CAF50;
+      color: white;
+      cursor: pointer;
+      margin: 8px 0;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      width: 220px;
+    }
+    button:hover {
+      background: #45a049;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    @keyframes glow {
+      from {
+        box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ffd700;
+      }
+      to {
+        box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ffd700;
+      }
+    }
+    .leaderboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .close-button {
+      background: none;
+      border: none;
+      color: #999;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 5px;
+      width: auto !important;
+      transition: color 0.3s ease;
+    }
+    .close-button:hover {
+      color: white;
+      background: none !important;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+  </style>
+</head>
+<body>
+  <main></main>
+  <div id="leaderboard">
+    <div class="leaderboard-header">
+      <h2>🏆 Leaderboard</h2>
+      <button class="close-button" onclick="document.getElementById('leaderboard').style.display='none'; window.leaderboardManuallyClosed = true;">×</button>
+    </div>
+    <div id="scores"></div>
+  </div>
+</body>
+</html>
